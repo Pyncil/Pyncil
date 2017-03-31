@@ -1,0 +1,42 @@
+extends layouts/admin
+
+block content
+  div#app
+    h1 {{ title }}
+    div.row
+      div.col-sm-12.col-md-8.push-md-2.col-lg-6.push-lg-3
+        div(v-if="modules && typeof modules === 'string'") {{ modules }}
+        div(v-if="modules && typeof modules === 'object'")
+          table.table.table-hover.table-sm
+            thead
+              tr
+                th.text-left Module
+                th.text-right Version
+            tbody
+              tr(v-for='(module, name) in modules')
+                td.text-left {{ name }}
+                td.text-right {{ module.version }}
+        button(@click="getModules") Get Modules
+
+block scripts
+  script.
+    var app = new Vue({
+      el: '#app',
+      data: {
+        title: 'Hello!',
+        modules: ''
+      },
+      methods: {
+        getModules() {
+          var self = this
+          this.modules = 'Loading...'
+          
+          axios.get('/admin/dependencies')
+              .then((res) => {
+                self.modules = res.data.dependencies
+              }).catch((err) => {
+                self.modules = 'There was an error retrieving modules.'
+              })
+        }
+      }
+    })

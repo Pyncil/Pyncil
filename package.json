@@ -1,0 +1,33 @@
+{
+  "name": "jakemitchell",
+  "version": "0.0.0-alpha1",
+  "description": "My Personal CMS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js $IP $PORT"
+  },
+  "keywords": [
+    "CMS",
+    "Node",
+    "NodeJS",
+    "Express"
+  ],
+  "author": "Jake Mitchell",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.6.2",
+    "connect-ensure-login": "^0.1.1",
+    "csurf": "^1.9.0",
+    "express": "^4.15.2",
+    "express-force-https": "^1.0.0",
+    "express-session": "^1.15.2",
+    "helmet": "^3.5.0",
+    "passport": "^0.3.2",
+    "passport-auth0": "^0.6.0",
+    "pug": "^2.0.0-beta11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

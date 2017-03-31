@@ -1,0 +1,37 @@
+extends layout
+
+block metas
+  title !{ (((title) ? title + ' &mdash; ' : '') + 'Admin Panel') }
+  
+block scripts-head
+  script(src="https://unpkg.com/vue@2.2.6/dist/vue.min.js")
+  script(src="https://unpkg.com/axios@0.15.3/dist/axios.min.js" async defer)
+  block scripts-head
+
+block styles
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+  block styles
+
+block navigation
+  nav.navbar.navbar-toggleable-sm.navbar-inverse.bg-inverse
+    button.navbar-toggler.navbar-toggler-right(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    a.navbar-brand(href='/admin') Admin Panel
+    div#navbarNav.collapse.navbar-collapse
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href='/admin' class=((title == 'Home') ? 'active' : '')) Home
+        li.nav-item
+          a.nav-link(href='/admin/manage-dependencies' class=((title == 'Manage Dependencies') ? 'active' : '')) Dependencies
+      ul.navbar-nav.ml-auto
+        li.nav-item.dropdown
+          a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') #{user.nickname}
+          div.dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+            a.dropdown-item.disabled(href='/admin/user/settings') Settings
+            a.dropdown-item(href='/logout') Log Out
+
+block scripts
+  script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" async defer)
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" async defer)
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" async defer)
+  block scripts
