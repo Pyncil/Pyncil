@@ -1,5 +1,6 @@
 var express = require('express')
 var passport = require('passport')
+var env = require('../.env')
 var router = express.Router()
 var authControl = require('connect-ensure-login')
 var ensureLoggedIn = authControl.ensureLoggedIn
@@ -9,10 +10,10 @@ var ensureLoggedOut = authControl.ensureLoggedOut
  * Authentication Routes
  */
 
-router.get('/login/callback', passport.authenticate('auth0', { successReturnToOrRedirect: '/admin', failureRedirect: '/login' }))
+router.get('/login/callback', passport.authenticate(env.strategy, { successReturnToOrRedirect: '/admin', failureRedirect: '/login' }))
 
 router.get('/login', ensureLoggedOut('/admin'), function(req, res) {
-    res.render('admin/login', {
+    res.render('admin/login-' + env.strategy, {
         title: 'Login',
         client_id: process.env.AUTH0_CLIENT_ID,
         domain: process.env.AUTH0_DOMAIN,
@@ -25,9 +26,11 @@ router.get('/logout', ensureLoggedIn('/'), function(req, res){
     res.redirect('/login')
 })
 
+
 /**
  * App Routes
  */
+
 router.get('/', function(req, res) {
   res.render('index')
 })
