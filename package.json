@@ -16,21 +16,22 @@
   "author": "Jake Mitchell",
   "license": "ISC",
   "dependencies": {
-    "compression": "^1.6.2",
-    "connect-ensure-login": "^0.1.1",
-    "csurf": "^1.9.0",
-    "express": "^4.15.2",
-    "express-force-https": "^1.0.0",
-    "express-session": "^1.15.2",
-    "helmet": "^3.5.0",
-    "passport": "^0.3.2",
-    "passport-auth0": "^0.6.0",
-    "pug": "^2.0.0-beta11"
+    "compression": "1.6.2",
+    "connect-ensure-login": "0.1.1",
+    "csurf": "1.9.0",
+    "express": "4.15.2",
+    "express-force-https": "1.0.0",
+    "express-session": "1.15.2",
+    "helmet": "3.5.0",
+    "passport": "0.3.2",
+    "passport-auth0": "0.6.0",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "crypto": "0.0.3",
-    "nodemon": "^1.11.0",
-    "passport-local": "^1.0.0",
-    "sqlite3": "^3.1.8"
+    "nodemon": "1.11.0",
+    "npm-check-updates": "2.10.5",
+    "passport-local": "1.0.0",
+    "sqlite3": "3.1.8"
   }
 }

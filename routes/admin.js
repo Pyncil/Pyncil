@@ -1,6 +1,6 @@
 var express = require('express')
 var http = require('http')
-var cli = require('child_process').exec
+var ncu = require('npm-check-updates')
 var router = express.Router()
 
 /**
@@ -25,11 +25,27 @@ router.use(function(req, res, next) {
     else res.send(404, http.STATUS_CODES[404])
 })
 
-router.get('/dependencies', function(req, res) {
-    cli('npm ls --json --prod', function(err, stdout, stderr) {
-        if (err) return res.send(err)
-        res.send(stdout)
-    })
+router.get('/check-for-updates', function(req, res) {
+  ncu.run({
+    packageFile: 'package.json',
+    jsonUpgraded: true
+  }).then((outdated) => {
+    res.send(outdated)
+  }).catch((err) => {
+    res.send(err)
+  })
+})
+
+router.get('/update-modules', function(req, res) {
+  ncu.run({
+    packageFile: 'package.json',
+    upgrade: true,
+    removeRange: true
+  }).then((upgraded) => {
+    res.send(upgraded)
+  }).catch((err) => {
+    res.send(err)
+  })
 })
 
 module.exports = router
