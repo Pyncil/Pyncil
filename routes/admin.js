@@ -8,21 +8,21 @@ var router = express.Router()
  */
 
 router.get('/', function(req, res) {
-    res.render('admin/index', { title: 'Home', user: req.user })
+  res.render('admin/index', { title: 'Home', user: req.user })
 })
 
 router.get('/manage-dependencies', function(req, res) {
-    res.render('admin/dependencies', { title: 'Manage Dependencies', user: req.user })
+  res.render('admin/dependencies', { title: 'Manage Dependencies', user: req.user })
 })
 
 
 /**
  * AJAX Routes
  */
- 
+
 router.use(function(req, res, next) {
-    if(req.xhr || req.headers.accept.indexOf('json') > -1) next()
-    else res.send(404, http.STATUS_CODES[404])
+  if(req.xhr || req.headers.accept.indexOf('json') > -1) next()
+  else res.send(404, http.STATUS_CODES[404])
 })
 
 router.get('/check-for-updates', function(req, res) {
