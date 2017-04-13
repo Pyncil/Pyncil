@@ -23,7 +23,8 @@ router.get('/login', ensureLoggedOut('/admin'), (req, res) => {
 })
 
 router.get('/logout', ensureLoggedIn('/'), (req, res) => {
-  req.session.destroy(function (err) {
+  req.session.destroy((err) => {
+    if (err) return res.send(err)
     res.redirect('/')
   })
 })
