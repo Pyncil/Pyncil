@@ -14,17 +14,18 @@ var ensureLoggedOut = authControl.ensureLoggedOut
 router.get('/login/callback', passport.authenticate(env.strategy, { successReturnToOrRedirect: '/admin', failureRedirect: '/login' }))
 
 router.get('/login', ensureLoggedOut('/admin'), (req, res) => {
-    res.render('login-' + env.strategy, {
-        title: 'Login',
-        client_id: process.env.AUTH0_CLIENT_ID,
-        domain: process.env.AUTH0_DOMAIN,
-        callback: process.env.AUTH0_CALLBACK_URL,
-    })
+  res.render('admin/login-' + env.strategy, {
+    title: 'Login',
+    client_id: process.env.AUTH0_CLIENT_ID,
+    domain: process.env.AUTH0_DOMAIN,
+    callback: process.env.AUTH0_CALLBACK_URL,
+  })
 })
 
 router.get('/logout', ensureLoggedIn('/'), (req, res) => {
-    req.logout()
-    res.redirect('/login')
+  req.session.destroy(function (err) {
+    res.redirect('/')
+  })
 })
 
 

@@ -4,8 +4,8 @@ var webpack = require('webpack')
 module.exports = {
   entry: path.join(__dirname, 'admin', 'frontend', 'main.js'),
   output: {
-    path: path.join(__dirname, 'static', 'js'),
-    publicPath: '/js/',
+    path: path.join(__dirname, 'admin', 'static', 'js'),
+    publicPath: '/admin/static/js/',
     filename: 'build.js'
   },
   module: {
@@ -37,7 +37,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     modules: [
       path.join(__dirname, 'admin', 'frontend'),
-      path.join(__dirname, 'content'),
+      path.join(__dirname, 'content', 'plugins'),
+      path.join(__dirname, 'content', 'themes'),
       path.join(__dirname, 'node_modules')
     ],
     alias: {

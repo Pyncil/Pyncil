@@ -133,7 +133,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/js/";
+/******/ 	__webpack_require__.p = "/admin/static/js/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
@@ -8149,10 +8149,13 @@ module.exports = g;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_Full__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__containers_Full___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__containers_Full__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__themes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__themes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_Full__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__containers_Full___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__containers_Full__);
+
+
+
 
 
 
@@ -8164,9 +8167,6 @@ var Dashboard = function Dashboard(resolve) {
 var Widgets = function Widgets(resolve) {
   return __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(47)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this)).catch(__webpack_require__.oe);
 };
-
-
-
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
@@ -8181,7 +8181,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
     path: '/',
     redirect: '/dashboard',
     name: 'Home',
-    component: __WEBPACK_IMPORTED_MODULE_2__containers_Full___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_4__containers_Full___default.a,
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
@@ -8199,7 +8199,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
           return c('router-view');
         }
       },
-      children: __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]
+      children: __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */]
     }, {
       path: 'themes',
       redirect: '/themes/font-awesome',
@@ -8209,7 +8209,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
           return c('router-view');
         }
       },
-      children: __WEBPACK_IMPORTED_MODULE_4__themes__["a" /* default */]
+      children: __WEBPACK_IMPORTED_MODULE_3__themes__["a" /* default */]
     }]
   }]
 }));

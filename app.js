@@ -3,6 +3,7 @@ var session = require('express-session')
 var passport = require('passport')
 var helmet = require('helmet')
 var csrf = require('csurf')
+var path = require('path')
 
 var env = require('./.env')
 var helpers = require('./helpers')
@@ -31,7 +32,9 @@ if (env.env === 'production') {
 
 env.setupEnvironment()
 
-app.use(express.static('static'))
+app.use(express.static(path.join(__dirname, 'content', 'static')))
+app.use('/admin/static', express.static(path.join(__dirname, 'admin', 'static')))
+
 app.set('view engine', 'pug')
 app.set('views', ['./admin/views', './content/themes/' + env.activeTheme + '/views'])
 
