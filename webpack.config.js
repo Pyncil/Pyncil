@@ -2,9 +2,9 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './frontend/main.js',
+  entry: path.join(__dirname, 'admin', 'frontend', 'main.js'),
   output: {
-    path: path.resolve(__dirname, './static/js'),
+    path: path.join(__dirname, 'static', 'js'),
     publicPath: '/js/',
     filename: 'build.js'
   },
@@ -36,11 +36,14 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     modules: [
-      path.join(__dirname, 'frontend'),
+      path.join(__dirname, 'admin', 'frontend'),
+      path.join(__dirname, 'content'),
       path.join(__dirname, 'node_modules')
     ],
     alias: {
-      'views': path.join(__dirname, 'frontend', 'views'),
+      'views': path.join(__dirname, 'admin', 'frontend', 'views'),
+      'plugins': path.join(__dirname, 'content', 'plugins'),
+      'themes': path.join(__dirname, 'content', 'themes'),
       'vue$': 'vue/dist/vue.esm.js'
     }
   }

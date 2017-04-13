@@ -1,0 +1,27 @@
+extends ../layouts/layout
+
+block metas
+  title Error 404
+
+block styles
+  link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css')
+  link(rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css')
+  link(rel='stylesheet' href='/css/styles.css')
+
+block body
+  body
+    div.app.flex-row.align-items-center
+      div.container
+        div.row.justify-content-center
+          div.col-md-6
+            div.clearfix
+              h1.float-left.display-3.mr-2 404
+              h4.pt-1 Oops! You're lost.
+              p.text-muted The page you are looking for was not found.
+            div.input-prepend.input-group
+              span.input-group-addon
+                i.fa.fa-search
+              input#prependedInput.form-control(size="16" type="text" placeholder="What are you looking for?")
+              span.input-group-btn
+                button.btn.btn-info(type="button") Search
