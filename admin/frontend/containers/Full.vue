@@ -16,6 +16,8 @@
 </template>
 
 <script>
+'use strict'
+
 import AppHeader from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import AppAside from '../components/Aside'

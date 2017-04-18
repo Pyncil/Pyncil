@@ -3,7 +3,9 @@
     <slot></slot>
   </header>
 </template>
+
 <script>
+'use strict'
 export default {
   name: 'navbar',
   created () {

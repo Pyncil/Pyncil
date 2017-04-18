@@ -58,8 +58,11 @@
   </navbar>
 </template>
 <script>
+'use strict'
+
 import navbar from './Navbar'
 import { dropdown } from 'vue-strap'
+
 export default {
   name: 'header',
   components: {

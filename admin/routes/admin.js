@@ -1,7 +1,9 @@
-var express = require('express')
-var env = require('../../.env')
-var requireAjax = require('../../helpers').middleware.requireAjax
-var router = express.Router()
+'use strict'
+
+var express = require('express'),
+    path = require('path'),
+    requireAjax = require('../../helpers').middleware.requireAjax,
+    router = express.Router()
 
 
 /**
@@ -9,7 +11,7 @@ var router = express.Router()
  */
 
 router.get('/', (req, res) => {
-  res.render('admin/index', { title: env.title, user: req.user })
+  res.sendFile(path.resolve(__dirname, '../dist/html/index.html'))
 })
 
 

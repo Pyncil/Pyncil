@@ -73,7 +73,9 @@
     </nav>
   </div>
 </template>
+
 <script>
+'use strict'
 export default {
   name: 'sidebar',
   methods: {

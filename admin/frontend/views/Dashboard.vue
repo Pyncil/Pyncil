@@ -795,6 +795,7 @@
 </template>
 
 <script>
+'use strict'
 
 import { dropdown } from 'vue-strap'
 

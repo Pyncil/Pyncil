@@ -1,8 +1,12 @@
-module.exports = (function() {
+'use strict'
+module.exports = new (function() {
   var self = this
 
   this.title = 'My App'
-  this.activeTheme = 'basic'
+  this.activeTheme = {
+    name: 'basic',
+    viewEngine: 'pug'
+  }
   
   this.env = 'development' // or 'production'
   this.url = 'example.com' // public url, use 'localhost' if on localhost
@@ -31,5 +35,5 @@ module.exports = (function() {
     process.env.AUTH0_CALLBACK_URL = self.auth0.callbackURL
   }
 
-  return this
+  return self
 })()

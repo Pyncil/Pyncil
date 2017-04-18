@@ -1,7 +1,9 @@
+'use strict'
+
 var crypto = require('crypto')
 var http = require('http')
 
-module.exports = (function() {
+module.exports = new (function() {
   var self = this
   
   this.middleware = {
@@ -18,7 +20,7 @@ module.exports = (function() {
   }
 
   this.randomString = function(length){
-    return crypto.randomBytes(Math.ceil(length/2)).toString('hex').slice(0, length)
+    return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
   }
 
   this.hash = function(string, salt) {
@@ -30,5 +32,5 @@ module.exports = (function() {
     }
   }
 
-  return this
+  return self
 })()

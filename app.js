@@ -1,24 +1,26 @@
-var express = require('express')
-var session = require('express-session')
-var passport = require('passport')
-var helmet = require('helmet')
-var csrf = require('csurf')
-var path = require('path')
+'use strict'
 
-var env = require('./.env')
-var helpers = require('./helpers')
-var admin = require('./admin/routes/routes')
-var routes = require('./content/themes/' + env.activeTheme + '/routes')
+var express = require('express'),
+    session = require('express-session'),
+    passport = require('passport'),
+    helmet = require('helmet'),
+    csrf = require('csurf'),
+    path = require('path')
 
-var app = express()
-var sess = {
-  secret: env.secretKey,
-  cookie: {}
-}
+var env = require('./.env'),
+    helpers = require('./helpers'),
+    admin = require('./admin/routes/routes'),
+    routes = require('./content/themes/' + env.activeTheme.name + '/routes')
+
+var app = express(),
+    sess = {
+      secret: env.secretKey,
+      cookie: {}
+    }
 
 if (env.env === 'production') {
-  var forceSSL = require('express-force-https')
-  var compression = require('compression')
+  var forceSSL = require('express-force-https'),
+      compression = require('compression')
 
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
@@ -32,11 +34,11 @@ if (env.env === 'production') {
 
 env.setupEnvironment()
 
-app.use(express.static(path.join(__dirname, 'content', 'static')))
-app.use('/admin/static', express.static(path.join(__dirname, 'admin', 'static')))
+app.use(express.static(path.resolve(__dirname, './content/static')))
+app.use('/admin/dist', express.static(path.resolve(__dirname, './admin/dist')))
 
-app.set('view engine', 'pug')
-app.set('views', ['./admin/views', './content/themes/' + env.activeTheme + '/views'])
+app.set('view engine', env.activeTheme.viewEngine)
+app.set('views', './content/themes/' + env.activeTheme.name + '/views')
 
 // Authentication
 if (env.strategy === 'auth0') {
@@ -80,6 +82,23 @@ if (env.strategy === 'auth0') {
   })
 }
 
+// Development build of frontend
+/*
+if (env.env === 'development') {
+  // https://github.com/chimurai/http-proxy-middleware
+  var proxy = require('http-proxy-middleware'),
+      proxyTable = require('./admin/build/config').dev.proxyTable
+
+  // proxy api requests
+  Object.keys(proxyTable).forEach((context) => {
+    var options = proxyTable[context]
+    if (typeof options === 'string')
+      options = { target: options }
+
+    app.use(proxy(options.filter || context, options))
+  })
+}
+*/
 
 /**
  * Middleware

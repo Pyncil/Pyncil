@@ -3,6 +3,7 @@
 </template>
 
 <script>
+'use strict'
 export default {
   name: 'app'
 }

@@ -1,3 +1,5 @@
+'use strict'
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -9,8 +11,8 @@ import Themes from './themes'
 import Full from '../containers/Full'
 
 // Top Level Views
-const Dashboard = resolve => require(['views/Dashboard'], resolve)
-const Widgets   = resolve => require(['views/Widgets'], resolve)
+const Dashboard = (resolve) => require(['views/Dashboard'], resolve)
+const Widgets   = (resolve) => require(['views/Widgets'], resolve)
 
 Vue.use(VueRouter)
 

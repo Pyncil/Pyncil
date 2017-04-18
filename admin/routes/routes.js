@@ -1,11 +1,15 @@
-var express = require('express')
-var passport = require('passport')
-var env = require('../../.env')
-var admin = require('./admin')
-var router = express.Router()
-var authControl = require('connect-ensure-login')
-var ensureLoggedIn = authControl.ensureLoggedIn
-var ensureLoggedOut = authControl.ensureLoggedOut
+'use strict'
+
+var express = require('express'),
+    path = require('path'),
+    passport = require('passport'),
+    env = require('../../.env'),
+    admin = require('./admin'),
+    router = express.Router(),
+    ejs = require('ejs'),
+    authControl = require('connect-ensure-login'),
+    ensureLoggedIn = authControl.ensureLoggedIn,
+    ensureLoggedOut = authControl.ensureLoggedOut
 
 /**
  * Authentication Routes
@@ -14,11 +18,14 @@ var ensureLoggedOut = authControl.ensureLoggedOut
 router.get('/login/callback', passport.authenticate(env.strategy, { successReturnToOrRedirect: '/admin', failureRedirect: '/login' }))
 
 router.get('/login', ensureLoggedOut('/admin'), (req, res) => {
-  res.render('admin/login-' + env.strategy, {
-    title: 'Login',
+  var file = path.resolve(__dirname, '../dist/html/login-' + env.strategy + '.html')
+  ejs.renderFile(file, {
     client_id: process.env.AUTH0_CLIENT_ID,
     domain: process.env.AUTH0_DOMAIN,
     callback: process.env.AUTH0_CALLBACK_URL,
+  }, (err, str) => {
+    if (err) return res.send(err)
+    res.send(str)
   })
 })
 

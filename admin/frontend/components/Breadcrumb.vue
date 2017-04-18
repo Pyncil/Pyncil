@@ -7,6 +7,7 @@
 </template>
 
 <script>
+'use strict'
 export default {
   props: {
     list: {
@@ -18,10 +19,10 @@ export default {
   },
   methods: {
     isLast (index) {
-      return index === this.list.length - 1
+      return index === (this.list.length - 1)
     },
     showName (item) {
-      return item.meta && item.meta.label || item.name
+      return item.meta && (item.meta.label || item.name)
     }
   }
 }
