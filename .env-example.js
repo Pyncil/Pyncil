@@ -7,7 +7,7 @@ module.exports = new (function() {
     name: 'basic',
     viewEngine: 'pug'
   }
-  
+
   this.env = 'development' // or 'production'
   this.url = 'example.com' // public url, use 'localhost' if on localhost
   this.port = '8080' // any port >= 3000
