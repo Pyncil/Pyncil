@@ -5,7 +5,8 @@ var express = require('express'),
     passport = require('passport'),
     helmet = require('helmet'),
     csrf = require('csurf'),
-    path = require('path')
+    path = require('path'),
+    bodyParser = require('body-parser')
 
 var env = require('./.env'),
     helpers = require('./helpers'),
@@ -18,6 +19,12 @@ var app = express(),
       cookie: {}
     }
 
+/**
+ * Settings
+ */
+
+env.setupEnvironment()
+
 if (env.env === 'production') {
   var forceSSL = require('express-force-https'),
       compression = require('compression')
@@ -27,12 +34,6 @@ if (env.env === 'production') {
   app.use(forceSSL) // force SSL
   app.use(compression()) // turn on compression
 }
-
-/**
- * Settings
- */
-
-env.setupEnvironment()
 
 app.use(express.static(path.resolve(__dirname, './content/static')))
 app.use('/admin/dist', express.static(path.resolve(__dirname, './admin/dist')))
@@ -52,7 +53,7 @@ if (env.strategy === 'auth0') {
 } else if (env.strategy === 'local') {
   var sqlite3 = require('sqlite3').verbose()
   var db = new sqlite3.Database(':memory:')
-  
+
   db.serialize(function() {
     db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username , password, salt)')
     var stmt = db.prepare('INSERT INTO users (username, password, salt) VALUES (?, ?, ?)')
@@ -109,6 +110,13 @@ app.use(session(sess))
 app.use(csrf())
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+if (env.env === 'development') {
+  app.use(require('morgan')('dev'))
+}
 
 
 /**
