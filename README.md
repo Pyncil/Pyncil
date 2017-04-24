@@ -1,4 +1,6 @@
 # Pyncil
+[![Known Vulnerabilities](https://snyk.io/test/github/pyncil/pyncil/badge.svg)](https://snyk.io/test/github/pyncil/pyncil)
+
 A Modern Node.js CMS
 
 ## Dev Setup
