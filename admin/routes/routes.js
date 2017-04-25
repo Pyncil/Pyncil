@@ -3,10 +3,12 @@
 var express = require('express'),
     path = require('path'),
     passport = require('passport'),
+    csrf = require('csurf'),
     env = require('../../.env'),
     admin = require('./admin'),
     router = express.Router(),
-    ejs = require('ejs'),
+    bodyParser = require('body-parser'),
+    engines = require('consolidate'),
     authControl = require('connect-ensure-login'),
     ensureLoggedIn = authControl.ensureLoggedIn,
     ensureLoggedOut = authControl.ensureLoggedOut
@@ -15,14 +17,12 @@ var express = require('express'),
  * Authentication Routes
  */
 
-router.get('/login/callback', passport.authenticate(env.strategy, { successReturnToOrRedirect: '/admin', failureRedirect: '/login' }))
+router.post('/login', bodyParser.urlencoded({ extended: false }), csrf(),
+          passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/login' }))
 
-router.get('/login', ensureLoggedOut('/admin'), (req, res) => {
-  var file = path.resolve(__dirname, '../dist/html/login-' + env.strategy + '.html')
-  ejs.renderFile(file, {
-    client_id: process.env.AUTH0_CLIENT_ID,
-    domain: process.env.AUTH0_DOMAIN,
-    callback: process.env.AUTH0_CALLBACK_URL,
+router.get('/login', csrf(), ensureLoggedOut('/admin'), (req, res) => {
+  engines.ejs(path.resolve(__dirname, '../dist/views/login.ejs'), {
+    csrf: req.csrfToken()
   }, (err, str) => {
     if (err) return res.send(err)
     res.send(str)

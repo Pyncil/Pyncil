@@ -2,6 +2,7 @@
 
 var express = require('express'),
     path = require('path'),
+    engines = require('consolidate'),
     requireAjax = require('../../helpers').middleware.requireAjax,
     router = express.Router()
 
@@ -11,7 +12,12 @@ var express = require('express'),
  */
 
 router.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/html/index.html'))
+  engines.ejs(path.resolve(__dirname, '../dist/views/index.ejs'), {
+    user: req.user
+  }, (err, str) => {
+    if (err) return res.send(err)
+    res.send(str)
+  })
 })
 
 

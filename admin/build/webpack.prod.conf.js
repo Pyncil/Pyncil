@@ -42,10 +42,10 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
     new OptimizeCSSPlugin(),
-    // generate dist index.html with correct asset hash for caching.
+    // generate dist index.ejs with correct asset hash for caching.
     new HtmlWebpackPlugin({
-      filename: utils.assetsPath('html/index.html'),
-      template: path.resolve(__dirname, '../static/html/index.html'),
+      filename: utils.assetsPath('views/index.ejs'),
+      template: path.resolve(__dirname, '../static/views/index.ejs'),
       inject: true,
       minify: {
         removeComments: true,
@@ -56,6 +56,16 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
+    }),
+    new HtmlWebpackPlugin({
+      filename: utils.assetsPath('views/login.ejs'),
+      template: path.resolve(__dirname, '../static/views/login.ejs'),
+      inject: false,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
@@ -82,7 +92,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       {
         from: path.resolve(__dirname, '../static'),
         to: path.resolve(__dirname, '..', config.build.assetsSubDirectory),
-        ignore: ['.*', 'index.html']
+        ignore: ['.*', '*.ejs']
       }
     ])
   ]

@@ -13,26 +13,30 @@ module.exports = new (function() {
   this.port = '8080' // any port >= 3000
   this.secretKey = 'halla at cho boi' // some random, creative string
 
-  this.strategy = 'auth0' // or 'local'
-  this.auth0 = {
-    domain: '***.auth0.com',
-    clientID: '{{ ClientID }}',
-    clientSecret: '{{ ClientSecret }}',
-    callbackURL: 'https://' + self.url + '/login/callback'
-  }
-  this.local = {
+  this.admin = { // initial admin login info
     username: 'admin',
     password: 'admin'
+  }
+
+  this.db = { // Database config (SQL only)
+    name: 'primary', // name of the database
+    username: 'postgres', // username of database owner
+    password: 'password', // password for database owner (null if no password)
+    settings: {
+      host: 'localhost', // change for remote database hosting
+      dialect: 'postgres', // one of [ 'postgres', 'mysql', 'sqlite3' ] - only tested for postgresql
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+      storage: 'database/db.sqlite' // SQLite only
+    }
   }
 
   this.setupEnvironment = function() {
     process.env.PORT = process.env.PORT || self.port
     process.env.NODE_ENV = self.env
-
-    process.env.AUTH0_CLIENT_ID = self.auth0.clientID
-    process.env.AUTH0_CLIENT_SECRET = self.auth0.clientSecret
-    process.env.AUTH0_DOMAIN = self.auth0.domain
-    process.env.AUTH0_CALLBACK_URL = self.auth0.callbackURL
   }
 
   return self
