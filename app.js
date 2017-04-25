@@ -12,11 +12,12 @@ var env = require('./.env'),
     admin = require('./admin/routes/routes'),
     routes = require('./content/themes/' + env.activeTheme.name + '/routes')
 
-env.setupEnvironment()
+process.env.PORT = process.env.PORT || 8080
+process.env.NODE_ENV = env.env
 
 var app = express(),
     sess = {
-      secret: env.secretKey,
+      secret: helpers.randomString(16),
       cookie: {}
     }
 
