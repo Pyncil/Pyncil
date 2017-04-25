@@ -23,13 +23,11 @@ module.exports = {
     modules: [
       resolve('admin/frontend'),
       resolve('content/plugins'),
-      resolve('content/themes'),
       resolve('node_modules')
     ],
     alias: {
       'views': resolve('admin/frontend/views'),
       'plugins': resolve('content/plugins'),
-      'themes': resolve('content/themes'),
       'vue$': 'vue/dist/vue.common.js',
     }
   },
