@@ -8,10 +8,10 @@
     "type": "git",
     "url": "https://github.com/Pyncil/Pyncil.git"
   },
-  "main": "server.js",
   "scripts": {
     "start": "node bin/www",
     "dev": "nodemon bin/www",
+    "about": "node about",
     "build-prod": "node admin/build/prod.js",
     "build-dev": "node admin/build/dev-server.js",
     "test": "jasmine JASMINE_CONFIG_PATH=tests/config/jasmine.json"
@@ -59,6 +59,7 @@
     "compression-webpack-plugin": "^0.4.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^2.0.7",
     "eslint-loader": "^1.7.1",
