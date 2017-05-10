@@ -36,7 +36,6 @@ if (env.env === 'production') {
 }
 
 app.use(express.static(path.resolve(__dirname, './content/static')))
-app.use('/admin', express.static(path.resolve(__dirname, './admin/dist')))
 
 app.set('view engine', env.activeTheme.viewEngine)
 app.set('views', './content/themes/' + env.activeTheme.name + '/views')

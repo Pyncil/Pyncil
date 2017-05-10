@@ -8,8 +8,10 @@ var express = require('express'),
 
 
 /**
- * Render Index
+ * Render Index & Static Files
  */
+
+router.use('/static', express.static(path.resolve(__dirname, '../dist')))
 
 router.get('/', (req, res) => {
   engines.ejs(path.resolve(__dirname, '../dist/views/index.ejs'), {

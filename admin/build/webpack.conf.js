@@ -23,7 +23,7 @@ var build = function (env) {
     },
     output: {
       path: resolve('admin/dist'),
-      publicPath: '/admin/',
+      publicPath: '/admin/static/',
       filename: 'js/[name].[chunkhash].js',
       chunkFilename: 'js/[id].[chunkhash].js'
     },
