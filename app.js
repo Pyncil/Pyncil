@@ -5,6 +5,7 @@ var express = require('express'),
     passport = require('passport'),
     helmet = require('helmet'),
     path = require('path'),
+    flash = require('connect-flash'),
     sequelize = require('sequelize')
 
 var env = require('./.env'),
@@ -63,27 +64,28 @@ User.sync().then(() => {
 })
 
 var LocalStrategy = require('passport-local')
-var strategy = new LocalStrategy((username, password, done) => {
-  User.findOne({
-    attributes: ['salt'],
-    where: { username: username }
-  }).then((row) => {
-    if (!row) return done(null, false, { message: 'Unknown user' })
-    var hash = helpers.hash(password, row.salt).hash
-
+var strategy = new LocalStrategy({ passReqToCallback : true }, 
+  (req, username, password, done) => {
     User.findOne({
-      attributes: { exclude: ['password'] },
-      where: { username: username, password: hash }
-    }).then((user) => {
-      (user) ? done(null, user)
-             : done(null, false, { message: 'Invalid password' })
+      attributes: ['salt'],
+      where: { username: username }
+    }).then((row) => {
+      if (!row) return done(null, false, req.flash('message', 'Invalid Username or Password.')) // unknown username
+      var hash = helpers.hash(password, row.salt).hash
+  
+      User.findOne({
+        attributes: { exclude: ['password'] },
+        where: { username: username, password: hash }
+      }).then((user) => {
+        (user) ? done(null, user) // successfully logged in
+               : done(null, false, req.flash('message', 'Invalid Username or Password.')) // invalid password
+      }, (err) => {
+        done(err) // error retrieving user info
+      })
     }, (err) => {
-      done(err, null)
+      done(err) // error finding user
     })
-  }, (err) => {
-    done(err, null)
   })
-})
 
 passport.use(strategy)
 passport.serializeUser((user, done) => done(null, user.id))
@@ -94,12 +96,13 @@ passport.deserializeUser((id, done) => {
   }).then((user) => {
     done(null, user)
   }, (err) => {
-    done(err, null)
+    done(err)
   })
 })
 
 app.use(helmet())
 app.use(session(sess))
+app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
 

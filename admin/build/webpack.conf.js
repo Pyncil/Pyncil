@@ -5,7 +5,6 @@ var path = require('path'),
     webpack = require('webpack'),
     moduleLoaders = require('./loaders'),
     checkVersions = require('./check-versions'),
-    CopyWebpackPlugin = require('copy-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
     OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin'),
@@ -106,15 +105,7 @@ var build = function (env) {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
         chunks: ['vendor']
-      }),
-      // copy custom static assets
-      new CopyWebpackPlugin([
-        {
-          from: resolve('admin/static'),
-          to: resolve('admin/dist'),
-          ignore: ['.*', '*.ejs']
-        }
-      ])
+      })
     ]
   }
 
