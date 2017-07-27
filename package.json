@@ -16,7 +16,9 @@
     "serve:dev": "nodemon bin/www",
     "build:prod": "webpack --config admin/build/webpack.conf.js --progress --env.production",
     "build:dev": "webpack --config admin/build/webpack.conf.js --progress --env.development --watch",
-    "test": "jasmine JASMINE_CONFIG_PATH=tests/config/jasmine.json"
+    "test": "jasmine JASMINE_CONFIG_PATH=tests/config/jasmine.json",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "Pyncil",
@@ -50,7 +52,8 @@
     "vue": "^2.2.6",
     "vue-chartjs": "^2.6.0",
     "vue-router": "^2.4.0",
-    "vue-strap": "^1.1.37"
+    "vue-strap": "^1.1.37",
+    "snyk": "^1.30.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -93,5 +96,6 @@
   "engines": {
     "node": "^7.10.0",
     "npm": "^4.5.0"
-  }
+  },
+  "snyk": true
 }
